@@ -12,7 +12,7 @@ function WeeklyStats() {
   return (
     <div className='weekly-stats'>
       <h4>Last {workHours.length} Work Days</h4>
-      <h4>Total Overtime: {totalOvertime}hrs</h4>
+      <h4>Total Overtime: {+(Math.round(totalOvertime + 'e+2') + 'e-2')}hrs</h4>
     </div>
   )
 }

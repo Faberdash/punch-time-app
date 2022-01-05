@@ -22,6 +22,12 @@ export const WorkHoursProvider = ({ children }) => {
     const data = await response.json()
 
     setWorkHours([data, ...workHours])
+
+    if (workHours.length < 7) {
+      setWorkHours([data, ...workHours])
+    } else {
+      setWorkHours([data, ...workHours.slice(0, 6)])
+    }
   }
 
   // Fetch the reports for the last 7 work days from the backend
@@ -30,11 +36,7 @@ export const WorkHoursProvider = ({ children }) => {
 
     const data = await response.json()
 
-    if (data.length > 7) {
-      setWorkHours(data.slice(0, 7))
-    } else {
-      setWorkHours(data)
-    }
+    setWorkHours(data.slice(0, 7))
 
     setIsLoading(false)
   }

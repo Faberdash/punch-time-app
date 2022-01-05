@@ -89,21 +89,6 @@
       },
       "hours": 8,
       "overtime": 0
-    },
-    {
-      "date": "2022-01-05T05:25:10.246Z",
-      "expectedHours": 8,
-      "shift": {
-        "start": "09:28",
-        "finish": "22:30"
-      },
-      "lunchBreak": {
-        "start": "12:30",
-        "finish": "13:25"
-      },
-      "hours": 12.12,
-      "overtime": 4.12,
-      "id": 7
     }
   ]
 }
