@@ -6,6 +6,7 @@ import ClockInList from './components/ClockInList'
 import Footer from './components/Footer'
 import AboutPage from './pages/AboutPage'
 import { WorkHoursProvider } from './context/PunchTimeContext'
+import AboutIconLink from './components/AboutIconLink'
 
 function App() {
   return (
@@ -20,8 +21,8 @@ function App() {
               element={
                 <>
                   <ClockInForm />
-                  {/* <WeeklyStats />
-                <ClockInList /> */}
+                  <WeeklyStats />
+                  <ClockInList />
                 </>
               }
             />
@@ -30,7 +31,9 @@ function App() {
           </Routes>
         </div>
 
-        {/* <Footer /> */}
+        <AboutIconLink />
+
+        <Footer />
       </Router>
     </WorkHoursProvider>
   )

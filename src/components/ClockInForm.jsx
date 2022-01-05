@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { FaBusinessTime, FaUtensils } from 'react-icons/fa'
 import PunchTimeContext from '../context/PunchTimeContext'
-import Date from './Date'
+import DateDisplay from './DateDisplay'
 
 function ClockInForm() {
   const [shift, setShift] = useState({
@@ -13,6 +13,10 @@ function ClockInForm() {
     start: '',
     finish: '',
   })
+
+  // The value for expected work hours is for now set to 8hrs per day,
+  // but can later be passed from a the user's profile for example
+  const [expectedHours, setExpectedHours] = useState(8)
 
   const { date, addWorkDay } = useContext(PunchTimeContext)
 
@@ -55,9 +59,11 @@ function ClockInForm() {
 
     const newWorkDay = {
       date,
-      expectedHours: 9,
+      expectedHours,
       shift,
       lunchBreak,
+      hours: calculateWorkedHours(),
+      overtime: calculateOvertime(),
     }
 
     addWorkDay(newWorkDay)
@@ -73,15 +79,67 @@ function ClockInForm() {
     })
   }
 
+  // Calculates the hours worked on that day
+  const calculateWorkedHours = () => {
+    let hours =
+      parseInt(shift.finish.substring(0, 2)) -
+      parseInt(shift.start.substring(0, 2))
+
+    let minutes =
+      parseInt(shift.finish.substring(3, 5)) -
+      parseInt(shift.start.substring(3, 5))
+
+    const breakTime = calculateLunchBreak()
+
+    let time = 0
+
+    if (minutes === 0) {
+      time = hours - breakTime
+    } else {
+      time = (hours += minutes / 60) - breakTime
+    }
+
+    // Roundes the returned value to 2 Decimal Places
+    return +(Math.round(time + 'e+2') + 'e-2')
+  }
+
+  // Calculates time spent on Lunch Break
+  const calculateLunchBreak = () => {
+    let hours =
+      parseInt(lunchBreak.finish.substring(0, 2)) -
+      parseInt(lunchBreak.start.substring(0, 2))
+
+    let minutes =
+      parseInt(lunchBreak.finish.substring(3, 5)) -
+      parseInt(lunchBreak.start.substring(3, 5))
+
+    if (minutes === 0) {
+      return hours
+    } else {
+      return (hours += minutes / 60)
+    }
+  }
+
+  // Calculates the time worked above or below the expected hours for that day
+  const calculateOvertime = () => {
+    let time = calculateWorkedHours() - expectedHours
+    return +(Math.round(time + 'e+2') + 'e-2')
+  }
+
   return (
     <div className='card'>
       <form onSubmit={handleSubmit}>
-        <h2>Please enter your work hours for today</h2>
+        <div className='centered'>
+          <h2>Please enter your work hours for today</h2>
+        </div>
 
         <div className='form-body'>
-          <Date />
-          <h3>
-            <FaBusinessTime /> Shift Details
+          <DateDisplay date={date} />
+          <h3 style={{ marginTop: '10px' }}>
+            <FaBusinessTime
+              style={{ marginRight: '3px', marginBottom: '-2px' }}
+            />{' '}
+            Shift Details
           </h3>
           <div className='time-input'>
             <label htmlFor='shift-start'>Clock In:</label>
@@ -106,7 +164,8 @@ function ClockInForm() {
             />
           </div>
           <h3>
-            <FaUtensils /> Lunch Break
+            <FaUtensils style={{ marginRight: '3px', marginBottom: '-2px' }} />{' '}
+            Lunch Break
           </h3>
           <div className='time-input'>
             <label htmlFor='break-start'>Start:</label>
@@ -132,9 +191,11 @@ function ClockInForm() {
           </div>
         </div>
 
-        <button type='submit' className='form-button'>
-          Save
-        </button>
+        <div className='centered'>
+          <button type='submit' className='form-button'>
+            Save
+          </button>
+        </div>
       </form>
     </div>
   )

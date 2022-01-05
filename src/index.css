@@ -34,6 +34,10 @@ form {
   padding-bottom: 15px;
 }
 
+label {
+  font-size: 1.1rem;
+}
+
 form h2 {
   margin-bottom: 10px;
 }
@@ -50,8 +54,16 @@ footer {
   padding: 0 20px;
 }
 
+.centered {
+  text-align: center;
+}
+
 .svg-fill {
   fill: #fff;
+}
+
+.about {
+  margin-bottom: 15.5vh;
 }
 
 .about h1 {
@@ -67,12 +79,15 @@ footer {
   border-radius: 15px;
   color: #242424;
   padding: 10px 20px;
-  text-align: center;
 }
 
 .form-body {
   padding: 3%;
   text-align: left;
+}
+
+.form-body h3 {
+  margin-top: 5px;
 }
 
 .time-input {
@@ -101,5 +116,56 @@ footer {
 .date-display {
   color: #666;
   font-size: 1.2rem;
-  margin-bottom: 10px;
+}
+
+.weekly-stats {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0 15px;
+}
+
+.hours-list {
+  margin-bottom: 50px;
+}
+
+.hours-item {
+  margin: 20px 0;
+  padding: 20px 30px;
+}
+
+.hours-item p {
+  display: inline;
+  font-size: 1.2rem;
+  margin-right: 50px;
+}
+
+.shift-time {
+  margin-top: 15px;
+}
+
+.overtime-field {
+  margin-top: 10px;
+}
+
+.about-link {
+  color: #fff;
+  float: right;
+  cursor: pointer;
+  width: 50px;
+}
+
+.about-link a {
+  color: #fff;
+}
+
+.about-link a:hover {
+  color: #ffd523;
+}
+
+.about-container {
+  margin-bottom: 50px;
+  padding: 20px 50px;
+  text-align: right;
 }
