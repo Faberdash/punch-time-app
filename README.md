@@ -4,7 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 1. Clone this repo using the repo url
 2. cd to the folder installed on your machine
-3. Open a CLI terminal from within the folder and run the command "npm run dev"
+3. Open a CLI terminal from within the folder, and first run the command "npm install"
+4. Then run the command "npm run dev"
 
 This should start up both the mock backend API server provided by the json-server package, as well as the React dev server in a new tab on your browser.
 
